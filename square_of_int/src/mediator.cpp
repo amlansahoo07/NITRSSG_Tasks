@@ -4,13 +4,14 @@
 #include <boost/bind.hpp>
 
 ros::NodeHandle* n;
+ros::Publisher pub;
 
 void processCallback(const std_msgs::Int32::ConstPtr& msg)
 {
   ROS_INFO("Squaring the number: [%d]", msg->data*msg->data);
   std_msgs::Int32 msg2;
   msg2.data = msg->data*msg->data;
-  ros::Publisher pub = n->advertise<std_msgs::Int32>("chatter", 1000);
+  pub = n->advertise<std_msgs::Int32>("chatter", 1000);
   pub.publish(msg2);
   ros::spinOnce(); 
 }
